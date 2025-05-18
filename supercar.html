@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Stylized WW1 Plane</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+  <a href="index.html">HELICOPTER</a>
+  <a href="supercar.html">HELICOPTER</a>
+  <a href="avenger.html">HELICOPTER</a>
+</nav>
+
+  <!-- Scrolling Background Text -->
+  <div class="scrolling-text">
+    <span>HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • </span>
+  </div>
+
+  <!-- Centered 3D Model -->
+  <div class="model-wrapper">
+    <model-viewer
+      src="model/h3-nt41_wreckr_battle_mobile_g13_17my2000.glb"
+      alt="Stylized WW1 Plane"
+      auto-rotate
+      autoplay
+      animation-loop
+      camera-controls
+      background-color="transparent"
+      shadow-intensity="1"
+      exposure="1"
+      camera-orbit="0deg 75deg 2.3m"
+      min-camera-orbit="0deg 75deg 2.3m"
+      max-camera-orbit="0deg 75deg 2.3m"
+    ></model-viewer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
