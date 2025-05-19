@@ -6,22 +6,24 @@
   <title>3D Library</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
+    /* Import futuristic font */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    body, html {
-      height: 100%;
-      width: 100%;
+
+    body {
       font-family: 'Orbitron', sans-serif;
-      background: #000;
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      color: white;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    /* Google Font */
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
-
+    /* Navbar */
     nav {
       width: 100%;
       background: #111;
@@ -33,88 +35,88 @@
       position: fixed;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
     }
 
     nav .logo {
       font-size: 24px;
       font-weight: bold;
-      color: #fff;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
     }
 
     .menu-toggle {
-      font-size: 24px;
+      font-size: 28px;
       cursor: pointer;
       display: none;
+      color: #00ffff;
     }
 
-    .menu {
-      display: flex;
-      gap: 15px;
-    }
-
-    .menu a {
-      color: white;
-      text-decoration: none;
-      padding: 10px;
-      transition: background 0.3s;
-    }
-
-    .menu a:hover {
-      background: #333;
-      border-radius: 5px;
-    }
-
-    /* Dropdown for mobile */
     .dropdown {
       display: none;
       flex-direction: column;
-      background: #111;
+      background: #222;
       position: absolute;
       top: 60px;
       right: 30px;
-      width: 200px;
+      width: 220px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
     .dropdown a {
-      padding: 10px;
-      border-bottom: 1px solid #222;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      transition: background 0.3s;
     }
 
-    .show {
+    .dropdown a:hover {
+      background: #00ffff22;
+    }
+
+    .dropdown.show {
       display: flex;
     }
 
-    .background-text {
+    /* Running background text */
+    .scrolling-text {
       position: absolute;
       top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 10vw;
+      white-space: nowrap;
+      width: 200%;
+      transform: translateY(-50%);
+      font-size: 8vw;
       color: white;
       opacity: 0.05;
-      white-space: nowrap;
+      animation: scrollText 20s linear infinite;
+      pointer-events: none;
       z-index: 0;
-      font-family: 'Orbitron', sans-serif;
-      animation: moveText 10s linear infinite;
     }
 
-    @keyframes moveText {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    model-viewer {
-      height: 80vh;
-      width: 100%;
-      max-width: 100%;
-      margin-top: 100px;
-      z-index: 1;
-    }
-
-    @media (max-width: 768px) {
-      .menu {
-        display: none;
+    @keyframes scrollText {
+      0% {
+        transform: translateX(0%) translateY(-50%);
       }
+      100% {
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+
+    /* 3D Model */
+    model-viewer {
+      display: block;
+      width: 90vw;
+      height: auto;
+      margin: 150px auto 40px;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
       .menu-toggle {
         display: block;
       }
@@ -123,22 +125,10 @@
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!-- Navbar -->
   <nav>
     <div class="logo">3D Library</div>
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-    <div class="menu">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-      <a href="#">Link 4</a>
-      <a href="#">Link 5</a>
-      <a href="#">Link 6</a>
-      <a href="#">Link 7</a>
-      <a href="#">Link 8</a>
-      <a href="#">Link 9</a>
-      <a href="#">Link 10</a>
-    </div>
     <div class="dropdown" id="dropdownMenu">
       <a href="#">Link 1</a>
       <a href="#">Link 2</a>
@@ -153,27 +143,34 @@
     </div>
   </nav>
 
-  <!-- Background Text -->
-  <div class="background-text">3D LIBRARY</div>
+  <!-- Background running text -->
+  <div class="scrolling-text">3D LIBRARY 3D LIBRARY 3D LIBRARY 3D LIBRARY 3D LIBRARY</div>
 
   <!-- 3D Model -->
   <model-viewer 
-    src="model/h3-nt41_wreckr_battle_mobile_g13_17my2000.glb" 
+    src="your-model.glb"
     alt="3D Model"
     auto-rotate 
     autoplay 
     camera-controls 
     ar 
     background-color="transparent"
-    exposure="1.2"
-    style="width: 90vw; height: auto; display: block; margin: 
+    exposure="1.2">
   </model-viewer>
 
+  <!-- Script -->
   <script>
     function toggleMenu() {
-      const dropdown = document.getElementById("dropdownMenu");
-      dropdown.classList.toggle("show");
+      document.getElementById("dropdownMenu").classList.toggle("show");
     }
+
+    // Optional: Close menu if clicked outside
+    window.addEventListener('click', function (e) {
+      const menu = document.getElementById('dropdownMenu');
+      if (!e.target.closest('nav')) {
+        menu.classList.remove('show');
+      }
+    });
   </script>
 
 </body>
