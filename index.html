@@ -1,69 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Stylized WW1 Plane</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Library</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      width: 100%;
+      font-family: 'Orbitron', sans-serif;
+      background: #000;
+      overflow-x: hidden;
+    }
+
+    /* Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    nav {
+      width: 100%;
+      background: #111;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .menu-toggle {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .menu {
+      display: flex;
+      gap: 15px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      transition: background 0.3s;
+    }
+
+    .menu a:hover {
+      background: #333;
+      border-radius: 5px;
+    }
+
+    /* Dropdown for mobile */
+    .dropdown {
+      display: none;
+      flex-direction: column;
+      background: #111;
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      width: 200px;
+    }
+
+    .dropdown a {
+      padding: 10px;
+      border-bottom: 1px solid #222;
+    }
+
+    .show {
+      display: flex;
+    }
+
+    .background-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 10vw;
+      color: white;
+      opacity: 0.05;
+      white-space: nowrap;
+      z-index: 0;
+      font-family: 'Orbitron', sans-serif;
+      animation: moveText 10s linear infinite;
+    }
+
+    @keyframes moveText {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    model-viewer {
+      height: 80vh;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 100px;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Flipping Navigation Bar -->
-<nav>
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">Menu 1</div>
-      <div class="flip-card-back">
-        <a href="/index.html">Home</a>
-      </div>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">3D Library</div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="menu">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+      <a href="#">Link 4</a>
+      <a href="#">Link 5</a>
+      <a href="#">Link 6</a>
+      <a href="#">Link 7</a>
+      <a href="#">Link 8</a>
+      <a href="#">Link 9</a>
+      <a href="#">Link 10</a>
     </div>
-  </div>
-
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">Menu 2</div>
-      <div class="flip-card-back">
-        <a href="/enter-name.html">Enter Name</a>
-      </div>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+      <a href="#">Link 4</a>
+      <a href="#">Link 5</a>
+      <a href="#">Link 6</a>
+      <a href="#">Link 7</a>
+      <a href="#">Link 8</a>
+      <a href="#">Link 9</a>
+      <a href="#">Link 10</a>
     </div>
-  </div>
+  </nav>
 
-  <div class="flip-card">
-    <div class="flip-card-inner">
-      <div class="flip-card-front">Menu 3</div>
-      <div class="flip-card-back">
-        <a href="/new-model.html">Different Model</a>
-      </div>
-    </div>
-  </div>
-</nav>
+  <!-- Background Text -->
+  <div class="background-text">3D LIBRARY</div>
 
+  <!-- 3D Model -->
+  <model-viewer 
+    src="your-model.glb" 
+    alt="3D Model" 
+    auto-rotate 
+    camera-controls 
+    ar 
+    background-color="transparent" 
+    exposure="1.2"
+    style="display: block; margin: auto;">
+  </model-viewer>
 
-  <!-- Scrolling Background Text -->
-  <div class="scrolling-text">
-    <span>HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • HELICOPTER • </span>
-  </div>
+  <script>
+    function toggleMenu() {
+      const dropdown = document.getElementById("dropdownMenu");
+      dropdown.classList.toggle("show");
+    }
+  </script>
 
-  <!-- Centered 3D Model -->
-  <div class="model-wrapper">
-    <model-viewer
-      src="model/stylized_ww1_plane.glb"
-      alt="Stylized WW1 Plane"
-      auto-rotate
-      autoplay
-      animation-loop
-      camera-controls
-      background-color="transparent"
-      shadow-intensity="1"
-      exposure="1"
-      camera-orbit="0deg 75deg 2.3m"
-      min-camera-orbit="0deg 75deg 2.3m"
-      max-camera-orbit="0deg 75deg 2.3m"
-    ></model-viewer>
-  </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
